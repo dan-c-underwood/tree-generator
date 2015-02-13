@@ -18,7 +18,7 @@ class ObjWriter:
 
         self.file.write("\n")
 
-    def add_face(self, vertices):
+    def add_face(self, vertices, group=None):
         vertices_num = []
         for v in vertices:
             vertices_num.append(v.num)
@@ -30,6 +30,11 @@ class ObjWriter:
             self.file.write(str(face))
 
         self.file.write("\n")
+
+    def write_all(self):
+        self.write_vertices()
+        self.file.write("g all\n")
+        self.write_faces()
 
     def close(self):
         self.file.close()

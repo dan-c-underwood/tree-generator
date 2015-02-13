@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>961</width>
+    <height>523</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Tree Generator</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>40</y>
+      <width>331</width>
+      <height>423</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QCheckBox" name="defaultBox">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default settings provided, guaranteed to produce a &amp;quot;tree-like&amp;quot; model&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Use default settings?</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="randomBox">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Turns on randomness for some parts of the tree generation process. This uses a normal distribution centred around the values given.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Enable randomness?</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="treeParaLabel">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Tree Parameters</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QSplitter" name="splitter">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the initial width of the trunk at the base of the tree. The rate at which the width decreases is set by the stem ratio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QLabel" name="radiusLabel">
+            <property name="text">
+             <string>Initial Trunk Radius</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="radiusSpinBox">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::PlusMinus</enum>
+            </property>
+            <property name="suffix">
+             <string>m</string>
+            </property>
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSplitter" name="splitter_3">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the length of the initial segment of trunk. If this value is increased then the tree will be taller, the amount the height of a segment of trunk decreases is set by the stem ratio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QLabel" name="lengthLabel">
+            <property name="text">
+             <string>Initial Trunk Length</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="lengthSpinBox">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::PlusMinus</enum>
+            </property>
+            <property name="suffix">
+             <string>m</string>
+            </property>
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>10.000000000000000</double>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSplitter" name="splitter_4">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the angle between the trunk and a branch.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QLabel" name="angleLabel">
+            <property name="text">
+             <string>Branch Angle</string>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="angleSpinBox">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::PlusMinus</enum>
+            </property>
+            <property name="suffix">
+             <string>°</string>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>90</number>
+            </property>
+            <property name="value">
+             <number>30</number>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSplitter" name="splitter_5">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls the ratio between the size of the trunk and the branches going off of it. A higher ratio value will give larger branches.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QLabel" name="bRatioLabel">
+            <property name="text">
+             <string>Branch Size Ratio</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="bRatioSpinBox">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::PlusMinus</enum>
+            </property>
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="minimum">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>1.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.500000000000000</double>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSplitter" name="splitter_6">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls the ratio between segments of trunk (and branches). A lower value will mean the tree 'tapers' off more quickly.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QLabel" name="sRatiolabel">
+            <property name="text">
+             <string>Stem Size Ratio</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="sRatioSpinBox">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::PlusMinus</enum>
+            </property>
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="minimum">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>1.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.700000000000000</double>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSplitter" name="splitter_7">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This sets how many branches will appear at each trunk segment.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QLabel" name="branchesLabel">
+            <property name="text">
+             <string>No. of Branches Per Level</string>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="branchesSpinBox">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::PlusMinus</enum>
+            </property>
+            <property name="maximum">
+             <number>10</number>
+            </property>
+            <property name="value">
+             <number>3</number>
+            </property>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSplitter" name="splitter_8">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This value controls the maximum depth of &lt;span style=&quot; font-weight:600;&quot;&gt;recursion&lt;/span&gt; that the generator will go to. The effect of this value being increase is that the tree will appear to be more grown.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QLabel" name="depthLabel">
+            <property name="text">
+             <string>Level of Growth</string>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="depthSpinBox">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::PlusMinus</enum>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>7</number>
+            </property>
+            <property name="value">
+             <number>4</number>
+            </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="leafParaLabel">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Leaf Parameters</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSplitter" name="splitter_9">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the width of the leaves on the tree.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <widget class="QLabel" name="lLengthLabel">
+          <property name="text">
+           <string>Length</string>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="lLengthSpinBox">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="buttonSymbols">
+           <enum>QAbstractSpinBox::PlusMinus</enum>
+          </property>
+          <property name="suffix">
+           <string>m</string>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.500000000000000</double>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSplitter" name="splitter_10">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the length of the leaves on the tree.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <widget class="QLabel" name="lWidthLabel">
+          <property name="text">
+           <string>Width</string>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="lWidthSpinBox">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="buttonSymbols">
+           <enum>QAbstractSpinBox::PlusMinus</enum>
+          </property>
+          <property name="suffix">
+           <string>m</string>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.250000000000000</double>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>40</y>
+      <width>20</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="logoBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>218</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>480</y>
+      <width>901</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="generateButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>290</y>
+      <width>261</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Generate Tree(s)</string>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="Line" name="line_4">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>230</y>
+      <width>321</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>40</y>
+      <width>321</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QSplitter" name="splitter_11">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the directory that the generated models will be placed in.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QLabel" name="directoryLabel">
+        <property name="text">
+         <string>Select Directory:</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="directoryButton">
+        <property name="text">
+         <string>Open</string>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="sciptParaLabel">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Script Parameters</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSplitter" name="splitter_2">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the number of faces per segment of trunk. This makes the final file size larger but the model will appear more natural.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QLabel" name="facesLabel">
+        <property name="text">
+         <string>Faces per Segment</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="facesSpinBox">
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::PlusMinus</enum>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>20</number>
+        </property>
+        <property name="value">
+         <number>6</number>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSplitter" name="splitter_12">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the number of trees to make when the &amp;quot;Generate Tree(s)!&amp;quot; button is pressed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QLabel" name="treesLabel">
+        <property name="text">
+         <string>How many trees?</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="treesSpinBox">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="sizeGripEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
