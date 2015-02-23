@@ -1,10 +1,13 @@
+"""
+File mostly generated from generator.ui and pyuic4. Initialises and manages the GUI for the tree generator.
+"""
 # coding=utf-8
 import ConfigParser
 import tempfile
 import os
 from PyQt4 import QtCore, QtGui
 
-from PyQt4.QtGui import QFileDialog, QApplication
+from PyQt4.QtGui import QFileDialog, QApplication, QMainWindow
 
 import tree_gen
 
@@ -17,16 +20,21 @@ except AttributeError:
 
 try:
     _encoding = QtGui.QApplication.UnicodeUTF8
+
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
+
 class Ui_MainWindow(QtGui.QMainWindow):
+    def __init__(self, QWidget_parent=None, Qt_WindowFlags_flags=0):
+        QMainWindow.__init__(self)
+        QMainWindow.__init__(self, QWidget_parent=None, Qt_WindowFlags_flags=0)
+        self.directory = os.path.realpath(".")
 
     def setupUi(self, MainWindow):
-        self.directory = os.path.realpath(".")
 
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(961, 523)
@@ -245,7 +253,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.facesLabel.setObjectName(_fromUtf8("facesLabel"))
         self.facesSpinBox = QtGui.QSpinBox(self.splitter_2)
         self.facesSpinBox.setButtonSymbols(QtGui.QAbstractSpinBox.PlusMinus)
-        self.facesSpinBox.setMinimum(1)
+        self.facesSpinBox.setMinimum(3)
         self.facesSpinBox.setMaximum(20)
         self.facesSpinBox.setProperty("value", 6)
         self.facesSpinBox.setObjectName(_fromUtf8("facesSpinBox"))
@@ -277,44 +285,72 @@ class Ui_MainWindow(QtGui.QMainWindow):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "Tree Generator", None))
-        self.defaultBox.setToolTip(_translate("MainWindow", "<html><head/><body><p>Use the default settings provided, guaranteed to produce a &quot;tree-like&quot; model</p></body></html>", None))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Tree Builder", None))
+        self.defaultBox.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>Use the default settings provided, guaranteed to produce a &quot;tree-like&quot; model</p></body></html>",
+                                              None))
         self.defaultBox.setText(_translate("MainWindow", "Use default settings?", None))
-        self.randomBox.setToolTip(_translate("MainWindow", "<html><head/><body><p>Turns on randomness for some parts of the tree generation process. This uses a normal distribution centred around the values given.</p></body></html>", None))
+        self.randomBox.setToolTip(_translate("MainWindow",
+                                             "<html><head/><body><p>Turns on randomness for some parts of the tree generation process. This uses a normal distribution centred around the values given.</p></body></html>",
+                                             None))
         self.randomBox.setText(_translate("MainWindow", "Enable randomness?", None))
         self.treeParaLabel.setText(_translate("MainWindow", "Tree Parameters", None))
-        self.splitter.setToolTip(_translate("MainWindow", "<html><head/><body><p>Sets the initial width of the trunk at the base of the tree. The rate at which the width decreases is set by the stem ratio.</p></body></html>", None))
+        self.splitter.setToolTip(_translate("MainWindow",
+                                            "<html><head/><body><p>Sets the initial width of the trunk at the base of the tree. The rate at which the width decreases is set by the stem ratio.</p></body></html>",
+                                            None))
         self.radiusLabel.setText(_translate("MainWindow", "Initial Trunk Radius", None))
         self.radiusSpinBox.setSuffix(_translate("MainWindow", "m", None))
-        self.splitter_3.setToolTip(_translate("MainWindow", "<html><head/><body><p>Sets the length of the initial segment of trunk. If this value is increased then the tree will be taller, the amount the height of a segment of trunk decreases is set by the stem ratio.</p></body></html>", None))
+        self.splitter_3.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>Sets the length of the initial segment of trunk. If this value is increased then the tree will be taller, the amount the height of a segment of trunk decreases is set by the stem ratio.</p></body></html>",
+                                              None))
         self.lengthLabel.setText(_translate("MainWindow", "Initial Trunk Length", None))
         self.lengthSpinBox.setSuffix(_translate("MainWindow", "m", None))
-        self.splitter_4.setToolTip(_translate("MainWindow", "<html><head/><body><p>Sets the angle between the trunk and a branch.</p></body></html>", None))
+        self.splitter_4.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>Sets the angle between the trunk and a branch.</p></body></html>",
+                                              None))
         self.angleLabel.setText(_translate("MainWindow", "Branch Angle", None))
         self.angleSpinBox.setSuffix(_translate("MainWindow", "°", None))
-        self.splitter_5.setToolTip(_translate("MainWindow", "<html><head/><body><p>Controls the ratio between the size of the trunk and the branches going off of it. A higher ratio value will give larger branches.</p></body></html>", None))
+        self.splitter_5.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>Controls the ratio between the size of the trunk and the branches going off of it. A higher ratio value will give larger branches.</p></body></html>",
+                                              None))
         self.bRatioLabel.setText(_translate("MainWindow", "Branch Size Ratio", None))
-        self.splitter_6.setToolTip(_translate("MainWindow", "<html><head/><body><p>Controls the ratio between segments of trunk (and branches). A lower value will mean the tree \'tapers\' off more quickly.</p></body></html>", None))
+        self.splitter_6.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>Controls the ratio between segments of trunk (and branches). A lower value will mean the tree \'tapers\' off more quickly.</p></body></html>",
+                                              None))
         self.sRatiolabel.setText(_translate("MainWindow", "Stem Size Ratio", None))
-        self.splitter_7.setToolTip(_translate("MainWindow", "<html><head/><body><p>This sets how many branches will appear at each trunk segment.</p></body></html>", None))
+        self.splitter_7.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>This sets how many branches will appear at each trunk segment.</p></body></html>",
+                                              None))
         self.branchesLabel.setText(_translate("MainWindow", "No. of Branches Per Level", None))
-        self.splitter_8.setToolTip(_translate("MainWindow", "<html><head/><body><p>This value controls the maximum depth of <span style=\" font-weight:600;\">recursion</span> that the generator will go to. The effect of this value being increase is that the tree will appear to be more grown.</p></body></html>", None))
+        self.splitter_8.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>This value controls the maximum depth of <span style=\" font-weight:600;\">recursion</span> that the generator will go to. The effect of this value being increase is that the tree will appear to be more grown.</p></body></html>",
+                                              None))
         self.depthLabel.setText(_translate("MainWindow", "Level of Growth", None))
         self.leafParaLabel.setText(_translate("MainWindow", "Leaf Parameters", None))
-        self.splitter_9.setToolTip(_translate("MainWindow", "<html><head/><body><p>Sets the width of the leaves on the tree.</p></body></html>", None))
+        self.splitter_9.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>Sets the width of the leaves on the tree.</p></body></html>",
+                                              None))
         self.lLengthLabel.setText(_translate("MainWindow", "Length", None))
         self.lLengthSpinBox.setSuffix(_translate("MainWindow", "m", None))
-        self.splitter_10.setToolTip(_translate("MainWindow", "<html><head/><body><p>Sets the length of the leaves on the tree.</p></body></html>", None))
+        self.splitter_10.setToolTip(_translate("MainWindow",
+                                               "<html><head/><body><p>Sets the length of the leaves on the tree.</p></body></html>",
+                                               None))
         self.lWidthLabel.setText(_translate("MainWindow", "Width", None))
         self.lWidthSpinBox.setSuffix(_translate("MainWindow", "m", None))
         self.generateButton.setText(_translate("MainWindow", "Generate Tree(s)", None))
-        self.splitter_11.setToolTip(_translate("MainWindow", "<html><head/><body><p>Set the directory that the generated models will be placed in.</p></body></html>", None))
+        self.splitter_11.setToolTip(_translate("MainWindow",
+                                               "<html><head/><body><p>Set the directory that the generated models will be placed in.</p></body></html>",
+                                               None))
         self.directoryLabel.setText(_translate("MainWindow", "Select Directory:", None))
         self.directoryButton.setText(_translate("MainWindow", "Open", None))
         self.sciptParaLabel.setText(_translate("MainWindow", "Script Parameters", None))
-        self.splitter_2.setToolTip(_translate("MainWindow", "<html><head/><body><p>Set the number of faces per segment of trunk. This makes the final file size larger but the model will appear more natural.</p></body></html>", None))
+        self.splitter_2.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>Set the number of faces per segment of trunk. This makes the final file size larger but the model will appear more natural.</p></body></html>",
+                                              None))
         self.facesLabel.setText(_translate("MainWindow", "Faces per Segment", None))
-        self.splitter_12.setToolTip(_translate("MainWindow", "<html><head/><body><p>Set the number of trees to make when the &quot;Generate Tree(s)!&quot; button is pressed.</p></body></html>", None))
+        self.splitter_12.setToolTip(_translate("MainWindow",
+                                               "<html><head/><body><p>Set the number of trees to make when the &quot;Generate Tree(s)!&quot; button is pressed.</p></body></html>",
+                                               None))
         self.treesLabel.setText(_translate("MainWindow", "How many trees?", None))
 
     def _toggle_fields(self, enabled):
@@ -381,7 +417,8 @@ class Ui_MainWindow(QtGui.QMainWindow):
             config.set('params', 'leaf_length', self.lLengthSpinBox.value())
             config.set('params', 'leaf_width', self.lWidthSpinBox.value())
 
-            file = tempfile.NamedTemporaryFile()
-            config.write(file)
-            file.flush()
-            return file
+            pref_file = tempfile.NamedTemporaryFile(delete=False)
+            config.write(pref_file)
+            pref_file.flush()
+            pref_file.close()
+            return pref_file

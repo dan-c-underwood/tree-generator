@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Tree Generator</string>
+   <string>Tree Builder</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="layoutWidget">
@@ -526,7 +526,7 @@
          <enum>QAbstractSpinBox::PlusMinus</enum>
         </property>
         <property name="minimum">
-         <number>1</number>
+         <number>3</number>
         </property>
         <property name="maximum">
          <number>20</number>
