@@ -9,6 +9,11 @@ A simple recursive algorithm was used as opposed to an L-System. This was becaus
 University of Manchester (School of Computer Science) to demonstrate the concept of recursion. The script was also
 designed to be easily explainable and modifiable by school children so simplicity was the design goal.
 
+Dependencies:
+numpy
+PyQt4
+future
+
 Usage:
 run_generator [-c|--cli] [-r|--random] [-s|--settings filename]
 
@@ -17,6 +22,7 @@ Options:
 -r | --random: Enables randomness in the tree generation process
 -s | --settings: Specify a .ini file for the tree generator to use (by default uses default.ini)
 """
+from __future__ import unicode_literals
 import sys
 import argparse
 

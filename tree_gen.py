@@ -1,8 +1,14 @@
 """
 Module to generate a .obj 3D model of a tree recursively.
 """
+from __future__ import division
+from __future__ import unicode_literals
+from future import standard_library
+standard_library.install_aliases()
+from builtins import range
+from past.utils import old_div
 import math
-import ConfigParser
+import configparser
 import copy
 from collections import deque
 
@@ -21,7 +27,7 @@ def _random_value_i(centre, scale=None):
     global random_en
     if random_en:
         if scale is None:
-            return int(round(np.random.normal(centre, centre / 6 + np.nextafter(0, 1))))
+            return int(round(np.random.normal(centre, old_div(centre, 6) + np.nextafter(0, 1))))
         else:
             return int(round(np.random.normal(centre, scale)))
     else:
@@ -34,7 +40,7 @@ def _random_value_f(centre, scale=None):
 
     if random_en:
         if scale is None:
-            return np.random.normal(centre, abs(centre / 6 + np.nextafter(0, 1)))
+            return np.random.normal(centre, abs(old_div(centre, 6) + np.nextafter(0, 1)))
         else:
             return np.random.normal(centre, scale)
     else:
@@ -101,7 +107,7 @@ def _draw_leaf(radius, length, matrix_stack):
     leaf_length = _random_value_f(config.getfloat("params", "leaf_length"))
     leaf_width = _random_value_f(config.getfloat("params", "leaf_width"))
 
-    rads_per_face = (2 * math.pi) / faces
+    rads_per_face = old_div((2 * math.pi), faces)
 
     trunk_face = 0
     current_rot = 0
@@ -194,7 +200,7 @@ def _draw_tree(depth, radius, length, matrix_stack):
     max_depth = config.getint("params", "max_depth")
 
     # Draw branch segment
-    rad_per_face = (2 * math.pi) / faces
+    rad_per_face = old_div((2 * math.pi), faces)
 
     trunk_face = 0
     current_rot = 0
@@ -256,7 +262,7 @@ def _draw_tree(depth, radius, length, matrix_stack):
 
         # Draw the branches that come from this segment of stem
         if branch_per_stem != 0:
-            rads_per_branch = (2 * math.pi) / branch_per_stem
+            rads_per_branch = old_div((2 * math.pi), branch_per_stem)
             current_angle = 0
             for branch in range(0, branch_per_stem):
                 new_matrix_stack = copy.copy(matrix_stack)
@@ -279,7 +285,7 @@ def generate(pref_file, random, out_file="tree.obj"):
     global writer
     writer = ObjWriter(out_file)
     global config
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
     global random_en
     random_en = random
 

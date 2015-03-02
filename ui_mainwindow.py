@@ -1,13 +1,20 @@
+# coding=utf-8
 """
 File mostly generated from generator.ui and pyuic4. Initialises and manages the GUI for the tree generator.
 """
-# coding=utf-8
-import ConfigParser
+from __future__ import division
+from __future__ import unicode_literals
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
+from past.utils import old_div
+import configparser
 import tempfile
 import os
 from PyQt4 import QtCore, QtGui
 
-from PyQt4.QtGui import QFileDialog, QApplication, QMainWindow
+from PyQt4.QtGui import QFileDialog, QApplication
 
 import tree_gen
 
@@ -29,12 +36,8 @@ except AttributeError:
 
 
 class Ui_MainWindow(QtGui.QMainWindow):
-    def __init__(self, QWidget_parent=None, Qt_WindowFlags_flags=0):
-        QMainWindow.__init__(self)
-        QMainWindow.__init__(self, QWidget_parent=None, Qt_WindowFlags_flags=0)
-        self.directory = os.path.realpath(".")
-
     def setupUi(self, MainWindow):
+        self.directory = os.path.realpath(".")
 
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(961, 523)
@@ -382,7 +385,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
     def _generate(self):
         self.progressBar.setValue(0)
         self.generateButton.setDisabled(True)
-        progress_interval = 100 / self.treesSpinBox.value()
+        progress_interval = old_div(100, self.treesSpinBox.value())
         randomness_en = not self.defaultBox.isChecked() and self.randomBox.isChecked()
         for tree_num in range(self.treesSpinBox.value()):
             self.statusbar.showMessage("Generating: tree_" + str(tree_num) + ".obj")
@@ -403,7 +406,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         if self.defaultBox.isChecked():
             return open('default.ini', 'r')
         else:
-            config = ConfigParser.RawConfigParser()
+            config = configparser.RawConfigParser()
             config.add_section('params')
             config.set('params', 'radius', self.radiusSpinBox.value())
             config.set('params', 'faces', self.facesSpinBox.value())

@@ -1,5 +1,11 @@
-class ObjWriter:
+from __future__ import unicode_literals
+from builtins import str
+from builtins import object
+
+
+class ObjWriter(object):
     """Class to handle the writing to a .obj file. """
+
     def __init__(self, filename):
         """
         Initialise a file to be written to.
@@ -59,7 +65,7 @@ class ObjWriter:
         """
         Write all instances of a Face object to the file. Splits Faces into groups where provided.
         """
-        for face_group in self.faces.keys():
+        for face_group in list(self.faces.keys()):
             if face_group is not "_none":
                 self.file.write("g " + face_group + "\n")
             for face in self.faces[face_group]:
@@ -81,8 +87,9 @@ class ObjWriter:
         self.file.close()
 
 
-class Vertex:
+class Vertex(object):
     """Class to represent a Vertex in 3D space for writing to a .obj file."""
+
     def __init__(self, x, y, z, num):
         """
         Initialise a Vertex object.
@@ -105,8 +112,9 @@ class Vertex:
         return "v " + str(self.x) + " " + str(self.y) + " " + str(self.z) + "\n"
 
 
-class Face:
+class Face(object):
     """Class to represent a Face consisting of multiple Vertices"""
+
     def __init__(self, vertices_num):
         """
         Initialise a Face object.
@@ -114,7 +122,7 @@ class Face:
         :param vertices_num: A list of the numbers of each Vertex to be added to the face (list larger than 3).
         :return: An instance of a Face object.
         """
-        if len(vertices_num) <= 3:
+        if len(vertices_num) < 3:
             raise Exception("A face must have at least three vertices")
         self.vertices_num = vertices_num
 
