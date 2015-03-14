@@ -5,7 +5,9 @@ The project was to inspire school-age children to consider taking Computer Scien
 This was done by devising an activity where the attendees could construct a 'virtual world' in the Unreal Engine 
 that they could then explore using the Oculus Rift headset. The educational aims were to demonstrate
 procedurally generated content and also (through that) recursion. This tool has an implementation of 
-Peter E. Oppenheimer's recursive algorithm in his paper *Real Time Design and Animation of Fractal Plants and Trees*. 
+Peter E. Oppenheimer's recursive algorithm in his paper *Real Time Design and Animation of Fractal Plants and Trees*.
+ 
+ ![Example of a tree produced using the tool](tree_example.png)
 
 ## Installation
 
