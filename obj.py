@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from builtins import str
 from builtins import object
 
@@ -37,9 +36,7 @@ class ObjWriter(object):
         Write all created vertices to the actual file.
         """
         for v in self.vertices:
-            self.file.write(str(v))
-
-        self.file.write("\n")
+            self.file.write(str(v) + "\n")
 
     def add_face(self, vertices, group=None):
         """
@@ -65,19 +62,21 @@ class ObjWriter(object):
         """
         Write all instances of a Face object to the file. Splits Faces into groups where provided.
         """
+        if '_none' in self.faces:
+            for face in self.faces["_none"]:
+                    self.file.write(str(face) + "\n")
         for face_group in list(self.faces.keys()):
             if face_group is not "_none":
                 self.file.write("g " + face_group + "\n")
-            for face in self.faces[face_group]:
-                self.file.write(str(face))
-
-        self.file.write("\n")
+                for face in self.faces[face_group]:
+                    self.file.write(str(face) + "\n")
 
     def write_all(self):
         """
         Write both all vertices and all faces to the file.
         """
         self.write_vertices()
+        self.file.write("\n")
         self.write_faces()
 
     def close(self):
@@ -109,7 +108,7 @@ class Vertex(object):
         """
         Write the Vertex as needed for the .obj file.
         """
-        return "v " + str(self.x) + " " + str(self.y) + " " + str(self.z) + "\n"
+        return "v " + str(self.x) + " " + str(self.y) + " " + str(self.z)
 
 
 class Face(object):
@@ -133,7 +132,5 @@ class Face(object):
         face = "f"
         for vertex_num in self.vertices_num:
             face += (" " + str(vertex_num))
-
-        face += "\n"
 
         return face

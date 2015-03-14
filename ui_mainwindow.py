@@ -2,18 +2,15 @@
 """
 File mostly generated from generator.ui and pyuic4. Initialises and manages the GUI for the tree generator.
 """
-from __future__ import division
-from __future__ import unicode_literals
-from future import standard_library
-standard_library.install_aliases()
 from builtins import str
 from builtins import range
-from past.utils import old_div
 import configparser
 import tempfile
+import re
 import os
-from PyQt4 import QtCore, QtGui
+import sys
 
+from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import QFileDialog, QApplication
 
 import tree_gen
@@ -36,8 +33,21 @@ except AttributeError:
 
 
 class Ui_MainWindow(QtGui.QMainWindow):
+    designs = []
+
     def setupUi(self, MainWindow):
         self.directory = os.path.realpath(".")
+        design_files = [f for f in os.listdir('./designs') if re.match(r'[a-zA-Z0-9_]+\.ini', f)]
+        for design_file in design_files:
+            if design_file != 'default.ini':
+                design_file = "./designs/" + design_file
+                try:
+                    config = configparser.RawConfigParser()
+                    config.read(design_file)
+                    listing = config.get("details", "design_name"), design_file
+                    self.designs.append(listing)
+                except configparser.NoSectionError:
+                    print("Warning: design file " + design_file + " does not contain name for design", file=sys.stderr)
 
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(961, 523)
@@ -49,9 +59,6 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.verticalLayout_4 = QtGui.QVBoxLayout(self.layoutWidget)
         self.verticalLayout_4.setMargin(0)
         self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
-        self.defaultBox = QtGui.QCheckBox(self.layoutWidget)
-        self.defaultBox.setObjectName(_fromUtf8("defaultBox"))
-        self.verticalLayout_4.addWidget(self.defaultBox)
         self.randomBox = QtGui.QCheckBox(self.layoutWidget)
         self.randomBox.setObjectName(_fromUtf8("randomBox"))
         self.verticalLayout_4.addWidget(self.randomBox)
@@ -212,23 +219,32 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.progressBar.setObjectName(_fromUtf8("progressBar"))
         self.generateButton = QtGui.QPushButton(self.centralwidget)
         self.generateButton.setEnabled(True)
-        self.generateButton.setGeometry(QtCore.QRect(640, 290, 261, 131))
+        self.generateButton.setGeometry(QtCore.QRect(650, 310, 261, 131))
         self.generateButton.setAutoDefault(False)
         self.generateButton.setDefault(False)
         self.generateButton.setFlat(False)
         self.generateButton.setObjectName(_fromUtf8("generateButton"))
         self.line_4 = QtGui.QFrame(self.centralwidget)
-        self.line_4.setGeometry(QtCore.QRect(620, 230, 321, 20))
+        self.line_4.setGeometry(QtCore.QRect(620, 280, 321, 20))
         self.line_4.setFrameShape(QtGui.QFrame.HLine)
         self.line_4.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_4.setObjectName(_fromUtf8("line_4"))
-        self.widget = QtGui.QWidget(self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(620, 40, 321, 151))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.verticalLayout_5 = QtGui.QVBoxLayout(self.widget)
+        self.layoutWidget1 = QtGui.QWidget(self.centralwidget)
+        self.layoutWidget1.setGeometry(QtCore.QRect(620, 40, 311, 219))
+        self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
+        self.verticalLayout_5 = QtGui.QVBoxLayout(self.layoutWidget1)
         self.verticalLayout_5.setMargin(0)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
-        self.splitter_11 = QtGui.QSplitter(self.widget)
+        self.defaultBox = QtGui.QCheckBox(self.layoutWidget1)
+        self.defaultBox.setObjectName(_fromUtf8("defaultBox"))
+        self.verticalLayout_5.addWidget(self.defaultBox)
+        self.existingBox = QtGui.QCheckBox(self.layoutWidget1)
+        self.existingBox.setObjectName(_fromUtf8("existingBox"))
+        self.verticalLayout_5.addWidget(self.existingBox)
+        self.designList = QtGui.QComboBox(self.layoutWidget1)
+        self.designList.setObjectName(_fromUtf8("designList"))
+        self.verticalLayout_5.addWidget(self.designList)
+        self.splitter_11 = QtGui.QSplitter(self.layoutWidget1)
         self.splitter_11.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_11.setObjectName(_fromUtf8("splitter_11"))
         self.directoryLabel = QtGui.QLabel(self.splitter_11)
@@ -236,7 +252,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.directoryButton = QtGui.QPushButton(self.splitter_11)
         self.directoryButton.setObjectName(_fromUtf8("directoryButton"))
         self.verticalLayout_5.addWidget(self.splitter_11)
-        self.sciptParaLabel = QtGui.QLabel(self.widget)
+        self.sciptParaLabel = QtGui.QLabel(self.layoutWidget1)
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
@@ -244,12 +260,12 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.sciptParaLabel.setFont(font)
         self.sciptParaLabel.setObjectName(_fromUtf8("sciptParaLabel"))
         self.verticalLayout_5.addWidget(self.sciptParaLabel)
-        self.line_3 = QtGui.QFrame(self.widget)
+        self.line_3 = QtGui.QFrame(self.layoutWidget1)
         self.line_3.setFrameShape(QtGui.QFrame.HLine)
         self.line_3.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_3.setObjectName(_fromUtf8("line_3"))
         self.verticalLayout_5.addWidget(self.line_3)
-        self.splitter_2 = QtGui.QSplitter(self.widget)
+        self.splitter_2 = QtGui.QSplitter(self.layoutWidget1)
         self.splitter_2.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_2.setObjectName(_fromUtf8("splitter_2"))
         self.facesLabel = QtGui.QLabel(self.splitter_2)
@@ -261,7 +277,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.facesSpinBox.setProperty("value", 6)
         self.facesSpinBox.setObjectName(_fromUtf8("facesSpinBox"))
         self.verticalLayout_5.addWidget(self.splitter_2)
-        self.splitter_12 = QtGui.QSplitter(self.widget)
+        self.splitter_12 = QtGui.QSplitter(self.layoutWidget1)
         self.splitter_12.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_12.setObjectName(_fromUtf8("splitter_12"))
         self.treesLabel = QtGui.QLabel(self.splitter_12)
@@ -279,20 +295,20 @@ class Ui_MainWindow(QtGui.QMainWindow):
         logo = QtGui.QPixmap("logo.png")
         self.logoBox.setPixmap(logo)
         self.statusbar.showMessage("Models will be saved in: " + self.directory)
+        self.designList.clear()
+        self.designList.addItems([item[0] for item in self.designs])
+        self.designList.setDisabled(True)
 
         self.generateButton.clicked.connect(self._generate)
         self.directoryButton.clicked.connect(self._get_directory)
-        self.defaultBox.toggled.connect(self._toggle_fields)
+        self.defaultBox.toggled.connect(self._toggle_default)
+        self.existingBox.toggled.connect(self._toggle_existing)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Tree Builder", None))
-        self.defaultBox.setToolTip(_translate("MainWindow",
-                                              "<html><head/><body><p>Use the default settings provided, guaranteed to produce a &quot;tree-like&quot; model</p></body></html>",
-                                              None))
-        self.defaultBox.setText(_translate("MainWindow", "Use default settings?", None))
         self.randomBox.setToolTip(_translate("MainWindow",
                                              "<html><head/><body><p>Turns on randomness for some parts of the tree generation process. This uses a normal distribution centred around the values given.</p></body></html>",
                                              None))
@@ -341,11 +357,21 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.lWidthLabel.setText(_translate("MainWindow", "Width", None))
         self.lWidthSpinBox.setSuffix(_translate("MainWindow", "m", None))
         self.generateButton.setText(_translate("MainWindow", "Generate Tree(s)", None))
+        self.defaultBox.setToolTip(_translate("MainWindow",
+                                              "<html><head/><body><p>Use the default settings provided, guaranteed to produce a &quot;tree-like&quot; model</p></body></html>",
+                                              None))
+        self.defaultBox.setText(_translate("MainWindow", "Use default settings?", None))
+        self.existingBox.setToolTip(_translate("MainWindow",
+                                               "<html><head/><body><p>Choose a design from a premade set of preferences.</p></body></html>",
+                                               None))
+        self.existingBox.setText(_translate("MainWindow", "Use an existing design?", None))
+        self.designList.setToolTip(
+            _translate("MainWindow", "<html><head/><body><p>List of usable designs.</p></body></html>", None))
         self.splitter_11.setToolTip(_translate("MainWindow",
                                                "<html><head/><body><p>Set the directory that the generated models will be placed in.</p></body></html>",
                                                None))
-        self.directoryLabel.setText(_translate("MainWindow", "Select Directory:", None))
-        self.directoryButton.setText(_translate("MainWindow", "Open", None))
+        self.directoryLabel.setText(_translate("MainWindow", "Choose directory for models:", None))
+        self.directoryButton.setText(_translate("MainWindow", "Select", None))
         self.sciptParaLabel.setText(_translate("MainWindow", "Script Parameters", None))
         self.splitter_2.setToolTip(_translate("MainWindow",
                                               "<html><head/><body><p>Set the number of faces per segment of trunk. This makes the final file size larger but the model will appear more natural.</p></body></html>",
@@ -356,9 +382,24 @@ class Ui_MainWindow(QtGui.QMainWindow):
                                                None))
         self.treesLabel.setText(_translate("MainWindow", "How many trees?", None))
 
+    def _toggle_default(self, enabled):
+        self._toggle_fields(enabled)
+        if enabled:
+            self.existingBox.setDisabled(True)
+        else:
+            self.existingBox.setDisabled(False)
+
+    def _toggle_existing(self, enabled):
+        self._toggle_fields(enabled)
+        if enabled:
+            self.defaultBox.setDisabled(True)
+            self.designList.setDisabled(False)
+        else:
+            self.defaultBox.setDisabled(False)
+            self.designList.setDisabled(True)
+
     def _toggle_fields(self, enabled):
         if enabled:
-            self.randomBox.setDisabled(True)
             self.radiusSpinBox.setDisabled(True)
             self.lengthSpinBox.setDisabled(True)
             self.angleSpinBox.setDisabled(True)
@@ -370,7 +411,6 @@ class Ui_MainWindow(QtGui.QMainWindow):
             self.lWidthSpinBox.setDisabled(True)
             self.facesSpinBox.setDisabled(True)
         else:
-            self.randomBox.setDisabled(False)
             self.radiusSpinBox.setDisabled(False)
             self.lengthSpinBox.setDisabled(False)
             self.angleSpinBox.setDisabled(False)
@@ -384,18 +424,31 @@ class Ui_MainWindow(QtGui.QMainWindow):
 
     def _generate(self):
         self.progressBar.setValue(0)
+        QApplication.processEvents()
         self.generateButton.setDisabled(True)
-        progress_interval = old_div(100, self.treesSpinBox.value())
+        progress_interval = 100 / self.treesSpinBox.value()
         randomness_en = not self.defaultBox.isChecked() and self.randomBox.isChecked()
+        file_num_offset = 0
         for tree_num in range(self.treesSpinBox.value()):
-            self.statusbar.showMessage("Generating: tree_" + str(tree_num) + ".obj")
+            path = os.path.join(self.directory, "tree_" + str(tree_num + file_num_offset) + ".obj")
+            while os.path.exists(path):
+                file_num_offset += 1
+                path = os.path.join(self.directory, "tree_" + str(tree_num + file_num_offset) + ".obj")
+            self.statusbar.showMessage("Generating: tree_" + str(tree_num + file_num_offset) + ".obj")
             QApplication.processEvents()
-            path = os.path.join(self.directory, "tree_" + str(tree_num) + ".obj")
-            tree_gen.generate(self._get_pref_file(), randomness_en, path)
+
+            try:
+                tree_gen.generate(self._get_pref_file(), randomness_en, path)
+            except configparser.NoSectionError:
+                self.statusbar.showMessage(
+                    "Warning: design file " + self._get_pref_file() + " does not contain parameters", 5000)
+                QApplication.processEvents()
             self.progressBar.setValue(self.progressBar.value() + progress_interval)
             QApplication.processEvents()
         self.progressBar.setValue(100)
+        QApplication.processEvents()
         self.statusbar.showMessage("Models will be saved in: " + self.directory)
+        QApplication.processEvents()
         self.generateButton.setDisabled(False)
 
     def _get_directory(self):
@@ -404,24 +457,25 @@ class Ui_MainWindow(QtGui.QMainWindow):
 
     def _get_pref_file(self):
         if self.defaultBox.isChecked():
-            return open('default.ini', 'r')
+            return 'designs/default.ini'
+        if self.existingBox.isChecked():
+            return self.designs[self.designList.currentIndex()][1]
         else:
-            config = configparser.RawConfigParser()
+            config = configparser.ConfigParser()
             config.add_section('params')
-            config.set('params', 'radius', self.radiusSpinBox.value())
-            config.set('params', 'faces', self.facesSpinBox.value())
-            config.set('params', 'length', self.lengthSpinBox.value())
-            config.set('params', 'branch_angle', self.angleSpinBox.value())
-            config.set('params', 'branch_ratio', self.bRatioSpinBox.value())
-            config.set('params', 'stem_ratio', self.sRatioSpinBox.value())
-            config.set('params', 'branch_per_stem', self.branchesSpinBox.value())
-            config.set('params', 'max_depth', self.depthSpinBox.value())
+            config.set('params', 'radius', str(self.radiusSpinBox.value()))
+            config.set('params', 'faces', str(self.facesSpinBox.value()))
+            config.set('params', 'length', str(self.lengthSpinBox.value()))
+            config.set('params', 'branch_angle', str(self.angleSpinBox.value()))
+            config.set('params', 'branch_ratio', str(self.bRatioSpinBox.value()))
+            config.set('params', 'stem_ratio', str(self.sRatioSpinBox.value()))
+            config.set('params', 'branch_per_stem', str(self.branchesSpinBox.value()))
+            config.set('params', 'max_depth', str(self.depthSpinBox.value()))
+            config.set('params', 'leaf_length', str(self.lLengthSpinBox.value()))
+            config.set('params', 'leaf_width', str(self.lWidthSpinBox.value()))
 
-            config.set('params', 'leaf_length', self.lLengthSpinBox.value())
-            config.set('params', 'leaf_width', self.lWidthSpinBox.value())
-
-            pref_file = tempfile.NamedTemporaryFile(delete=False)
-            config.write(pref_file)
-            pref_file.flush()
-            pref_file.close()
-            return pref_file
+            with open(tempfile.NamedTemporaryFile(delete=False).name, 'w') as pref_file:
+                config.write(pref_file)
+                pref_file.flush()
+                pref_file.close()
+                return pref_file.name

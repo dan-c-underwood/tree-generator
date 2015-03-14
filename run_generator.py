@@ -12,19 +12,10 @@ designed to be easily explainable and modifiable by school children so simplicit
 Dependencies:
 numpy
 PyQt4
-future
-
-Usage:
-run_generator [-c|--cli] [-r|--random] [-s|--settings filename]
-
-Options:
--c | --cli: Runs script on the command line rather than the GUI
--r | --random: Enables randomness in the tree generation process
--s | --settings: Specify a .ini file for the tree generator to use (by default uses default.ini)
 """
-from __future__ import unicode_literals
 import sys
 import argparse
+import doctest
 
 from PyQt4.QtGui import QApplication, QMainWindow
 
@@ -46,20 +37,23 @@ def _start_gui():
 
 
 # Initialise the Command Line version
-def _start_cli(settings_file, random):
-    generate(settings_file, random)
+def _start_cli(design_file, random):
+    generate(design_file, random)
 
 # Main definition
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generator for 3D Tree models')
     parser.add_argument('-c', '--cli', dest='cli', action='store_true', help='Runs program through the command line')
+    parser.add_argument('-d', '--design', type=str, dest='design_file', default='designs/default.ini', action='store',
+                        nargs=1, help="Specify a preferences design file for the CLI (.ini)")
     parser.add_argument('-r', '--random', dest='random', action='store_true')
-    parser.add_argument('-s', '--settings', type=str, dest='settings_file', default='default.ini', action='store',
-                        nargs=1, help="Specify a preferences file for the CLI")
+    parser.add_argument('-t', '--test', dest='test', action = 'store_true', help='Runs doctests in USAGE.md.')
 
     args = parser.parse_args()
+    if args.test:
+        doctest.testfile('USAGE.md')
 
     if args.cli:
-        _start_cli(open(args.settings_file, 'r'), args.random)
+        _start_cli(open(args.design_file, 'r'), args.random)
     else:
         _start_gui()

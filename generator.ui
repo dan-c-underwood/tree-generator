@@ -25,16 +25,6 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
-      <widget class="QCheckBox" name="defaultBox">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default settings provided, guaranteed to produce a &amp;quot;tree-like&amp;quot; model&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>Use default settings?</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QCheckBox" name="randomBox">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Turns on randomness for some parts of the tree generation process. This uses a normal distribution centred around the values given.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -425,8 +415,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>290</y>
+      <x>650</x>
+      <y>310</y>
       <width>261</width>
       <height>131</height>
      </rect>
@@ -448,7 +438,7 @@
     <property name="geometry">
      <rect>
       <x>620</x>
-      <y>230</y>
+      <y>280</y>
       <width>321</width>
       <height>20</height>
      </rect>
@@ -457,16 +447,43 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>620</x>
       <y>40</y>
-      <width>321</width>
-      <height>151</height>
+      <width>311</width>
+      <height>219</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QCheckBox" name="defaultBox">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the default settings provided, guaranteed to produce a &amp;quot;tree-like&amp;quot; model&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Use default settings?</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="existingBox">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose a design from a premade set of preferences.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Use an existing design?</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="designList">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;List of usable designs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QSplitter" name="splitter_11">
        <property name="toolTip">
@@ -477,12 +494,12 @@
        </property>
        <widget class="QLabel" name="directoryLabel">
         <property name="text">
-         <string>Select Directory:</string>
+         <string>Choose directory for models:</string>
         </property>
        </widget>
        <widget class="QPushButton" name="directoryButton">
         <property name="text">
-         <string>Open</string>
+         <string>Select</string>
         </property>
        </widget>
       </widget>
