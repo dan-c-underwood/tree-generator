@@ -386,8 +386,10 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self._toggle_fields(enabled)
         if enabled:
             self.existingBox.setDisabled(True)
+            self.randomBox.setDisabled(True)
         else:
             self.existingBox.setDisabled(False)
+            self.randomBox.setDisabled(False)
 
     def _toggle_existing(self, enabled):
         self._toggle_fields(enabled)
